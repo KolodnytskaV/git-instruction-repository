@@ -1,41 +1,96 @@
-#include <Windows.h>
 #include <iostream>
-#include <string>
+#include<Windows.h>
 
 using namespace std;
-using std::wcout;
 
-using std::wstring;
-using std::cin;
-using std::wcin;
+using std::cout;
 using std::endl;
 
-int main() {
-	SetConsoleCP(1251);
-	SetConsoleOutputCP(1251);
 
-	std::string NameCity;
-	std::cout << "Місто:";
-	getline(std::cin, NameCity);
-	std::string NameRestaurant;
-	std::cout << "Ресторан:";
-	getline(std::cin, NameRestaurant);
-	std::string Data;
-	std::cout << "Дата:";
-	getline(std::cin, Data);
-	std::string Time;
-	std::cout << "Година:";
-	getline(std::cin, Time);
-	std::string NumberOfThePeople;
-	std::cout << "Кількість людей:";
-	getline(std::cin, NumberOfThePeople);
-	std::string Name;
-	std::cout << "Замовник:";
-	getline(std::cin, Name);
-	std::string PhoneNumber;
-	std::cout << "Номер телефону:";
-	getline(std::cin, PhoneNumber);
 
-	return 0;
+//                 Математичний калькулятор
+//               /                          \
+//            Числа          <-              Операції(операнди)
+//        /             \                  /                \
+//Цифри (символи)      Значення     Позначення          Числа (операнди)
+
+class Operator
+{
+private:
+	char  Symbole;
+public:
+	Operator(){}
+	Operator(char val)
+	{
+		Symbole = val;
+	}
+	
+	char Show()
+	{
+		return Symbole;
+	}
+};
+struct Number
+{
+	char Symbol;
+	int Value;
+
+};
+// Вираз
+class Statement
+{
+private:
+	Number number[2];
+	Operator operations[2];//+=
+	// які дані будуть зберігатись
+	
+public:
+	//Методи
+
+	//Задати числа
+	Statement(int x, int y)
+	{
+		//Перше число
+		number[0] = Number();
+		number[0].Value = x;
+
+		//Друге число
+		number[1] = Number();
+		number[1].Value = y;
+
+
+		operations[0] = Operator('+');
+		operations[1] = Operator('=');
+	}
+
+	//Побудувати формулу
+	int Build()
+	{
+		int sum = number[0].Value + number[1].Value;
+		cout << "Сформований вираз:" << endl;
+		cout << number[0].Value << operations[0].Show()
+			<< number[1].Value << operations[1].Show()
+			<< sum << endl;
+		return sum;
+	}
+};
+
+int main()
+{
+	setlocale(LC_ALL, "ukr.utf8");
+
+	int x = 0, y = 0;
+
+	cout << "Введіть число х:" << endl;
+	cin >> x;
+	cout << "Введіть число у:" << endl;
+	cin >> y;
+	Statement statement = Statement(x, y);
+
+	statement.Build();
+	cin.get();
 
 }
+
+
+
